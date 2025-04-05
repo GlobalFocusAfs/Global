@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalFocus | Consultoria Empresarial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset e Estilos Gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f0f8ff;
+        }
+
+        /* Cabeçalho Fixo - MODIFICADO */
+        header {
+            background: linear-gradient(135deg, #6e8efb, #4a6cf7);
+            padding: 10px 0; /* Reduzido de 15px */
+            height: 70px; /* Altura fixa adicionada */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%; /* Adicionado para preencher altura do header */
+        }
+
+        .logo {
+            color: white;
+            font-size: 24px; /* Reduzido de 28px */
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Espaço entre logo e texto */
+        }
+
+        .logo img {
+            height: 150px; /* Reduzido de 120px */
+            width: auto;
+            max-width: 300px; /* Reduzido de 200px */
+            object-fit: contain;
+        }
+
+        /* Conteúdo Principal - Ajuste de margem */
+        main {
+            margin-top: 70px; /* Ajustado de 80px */
+            padding: 40px 0;
+        }
+
+        /* Menu de Navegação */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 25px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+
+        /* Botão do WhatsApp Fixo */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 60px;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background: #128C7E;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #4a6cf7;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: #3a5ce4;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Seções Centralizadas */
+        .section {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+            font-size: 36px;
+            color: #2c3e50;
+        }
+
+        .about {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .about-img {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-img img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            text-align: left;
+            padding: 0 20px;
+        }
+
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #4a6cf7;
+            text-align: center;
+        }
+
+        /* Seção Serviços */
+        .services {
+            background: #e6f0ff;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card i {
+            font-size: 40px;
+            color: #4a6cf7;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        /* Seção Contato */
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Rodapé */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 60px 0 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: #4a6cf7;
+        }
+
+        .footer-column p, .footer-column a {
+            margin-bottom: 15px;
+            display: block;
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: #4a6cf7;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #4a6cf7;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 14px;
+        }
+
+        /* Estilos para a seção Quem Somos */
+        .team-section {
+            padding: 60px 0;
+            background: #fff;
+        }
+
+        .team-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .team-tab {
+            padding: 10px 20px;
+            margin: 0 5px 10px;
+            background: #e6f0ff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .team-tab.active {
+            background: #4a6cf7;
+            color: white;
+        }
+
+        .team-tab:hover {
+            background: #3a5ce4;
+            color: white;
+        }
+
+        .team-content {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .team-content.active {
+            display: block;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .team-member {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 5px solid #e6f0ff;
+        }
+
+        .team-member h3 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .team-member p.position {
+            color: #4a6cf7;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            header {
+                height: 60px; /* Altura menor para mobile */
+                padding: 5px 0;
+            }
+            
+            .logo img {
+                height: 40px; /* Logo menor para mobile */
+            }
+            
+            main {
+                margin-top: 60px; /* Ajuste de margem para mobile */
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .about {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .about-text {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="imagens/logo.png" alt="Logo GlobalFocus"> <!-- Caminho corrigido -->
+                
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#sobre">O que fazemos</a></li>
+                    <li><a href="#quem-somos">Quem Somos</a></li>
+                    <li><a href="#servicos">Serviços</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Botão Flutuante do WhatsApp -->
+    <a href="https://wa.me/5585994151359" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Conteúdo Principal -->
+    <main>
+        <!-- Seção Hero -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1>Consultoria Empresarial de Excelência</h1>
+                <p>Transformando desafios em oportunidades para sua instituição de ensino</p>
+                <a href="#contato" class="btn">Fale Conosco</a>
+            </div>
+        </section>
+
+        <!-- Seção O que fazemos -->
+        <section class="section" id="sobre">
+            <h2 class="section-title">O que fazemos</h2>
+            <div class="about">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Equipe GlobalFocus">
+                </div>
+                <div class="about-text">
+                    <h3>Consultoria para o sucesso empresarial</h3>
+                    <p>A consultoria empresarial é a prática de oferecer orientação e suporte estratégico para empresas, ajudando-as a otimizar processos, aumentar a eficiência e alcançar seus objetivos de negócios. Nossos serviços abrangem diversas áreas, como gestão de projetos, marketing, finanças, logística, organizacional e recursos humanos.</p>
+                    <p>Atuamos como ponte entre teoria e prática, oferecendo consultoria especializada em gestão escolar, planejamento pedagógico e inovação educacional.</p>
+                    <p>Nosso diferencial está na abordagem personalizada e no acompanhamento contínuo dos resultados.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nova Seção Quem Somos -->
+        <section class="team-section" id="quem-somos">
+            <h2 class="section-title">Quem Somos</h2>
+            
+            <div class="team-tabs">
+                <button class="team-tab active" data-tab="presidencia">Presidência</button>
+                <button class="team-tab" data-tab="executivo">Executivo</button>
+                <button class="team-tab" data-tab="marketing">Marketing</button>
+                <button class="team-tab" data-tab="financeiro">Financeiro</button>
+                <button class="team-tab" data-tab="gestao-pessoas">Gestão de Pessoas</button>
+                <button class="team-tab" data-tab="novos-negocios">Novos Negócios</button>
+                <button class="team-tab" data-tab="administrativo">Administrativo</button>
+                <button class="team-tab" data-tab="logistica">Logística</button>
+            </div>
+            
+            <!-- Presidência -->
+            <div id="presidencia" class="team-content active">
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Presidente" class="team-photo">
+                        <h3>Nome do Presidente</h3>
+                        <p class="position">Presidente</p>
+                        <p>Breve descrição sobre o presidente e suas responsabilidades na empresa.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Executivo -->
+            <div id="executivo" class="team-content">
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="Imagens/Richarlyson-Ferreira.jpeg" alt="Foto do Executivo" class="team-photo">
+                        <h3>Richarlyson Ferreira</h3>
+                        <p class="position">Diretor Executivo</p>
+                        <p>Breve descrição sobre o executivo e suas responsabilidades na empresa.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Marketing -->
+            <div id="marketing" class="team-content">
+                <div class="team-grid">
+                    <!-- Pessoa 1 -->
+                    <div class="team-member">
+                        <img src="Imagens/Kauan-Pereira.jpeg" alt="Foto do Membro de Marketing" class="team-photo">
+                        <h3>Kauan Pereira</h3>
+                        <p class="position">Diretor do Marketing</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 2 -->
+                    <div class="team-member">
+                        <img src="Imagens/Thavyne Silva.jpeg" alt="Foto do Membro de Marketing" class="team-photo">
+                        <h3>Thavyne Silva</h3>
+                        <p class="position">Consultora de Marketing</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 3 -->
+                    <div class="team-member">
+                        <img src="Imagens/Leanny Queiroz.jpeg" alt="Foto do Membro de Marketing" class="team-photo">
+                        <h3>Leanny Queiroz</h3>
+                        <p class="position">Consultora do Marketing</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 4 -->
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Membro de Marketing" class="team-photo">
+                        <h3>Nome do Membro 4</h3>
+                        <p class="position">Marketing</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Financeiro -->
+            <div id="financeiro" class="team-content">
+                <div class="team-grid">
+                    <!-- Pessoa 1 -->
+                    <div class="team-member">
+                        <img src="Imganes/Francisco-Cauan.jpeg" alt="Foto do Membro Financeiro" class="team-photo">
+                        <h3>Francisco Cauan</h3>
+                        <p class="position">Diretor Financeiro</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 2 -->
+                    <div class="team-member">
+                        <img src="Imagens/João-Lucas.jpeg" alt="Foto do Membro Financeiro" class="team-photo">
+                        <h3>João Lucas</h3>
+                        <p class="position">Consultor do Financeiro</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 3 -->
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Membro Financeiro" class="team-photo">
+                        <h3>Nome do Membro 3</h3>
+                        <p class="position">Financeiro</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 4 -->
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Membro Financeiro" class="team-photo">
+                        <h3>Nome do Membro 4</h3>
+                        <p class="position">Financeiro</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gestão de Pessoas -->
+            <div id="gestao-pessoas" class="team-content">
+                <div class="team-grid">
+                    <!-- Pessoa 1 -->
+                    <div class="team-member">
+                        <img src="Imagens/João-Lucas (2).jpeg" alt="Foto do Membro de Gestão de Pessoas" class="team-photo">
+                        <h3>João Lucas</h3>
+                        <p class="position">Diretor de Gestão de Pessoas</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 2 -->
+                    <div class="team-member">
+                        <img src="Imagens/Davila-Barros.jpeg" alt="Foto do Membro de Gestão de Pessoas" class="team-photo">
+                        <h3>Dávila Barros</h3>
+                        <p class="position">Consultora de Gestão de Pessoas</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 3 -->
+                    <div class="team-member">
+                        <img src="Imagens/Isabela-Silva.jpeg" alt="Foto do Membro de Gestão de Pessoas" class="team-photo">
+                        <h3>Isabela Silva</h3>
+                        <p class="position">Consultora de Gestão de Pessoas</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 4 -->
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Membro de Gestão de Pessoas" class="team-photo">
+                        <h3>Nome do Membro 4</h3>
+                        <p class="position">Gestão de Pessoas</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Novos Negócios -->
+            <div id="novos-negocios" class="team-content">
+                <div class="team-grid">
+                    <!-- Pessoa 1 -->
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Membro de Novos Negócios" class="team-photo">
+                        <h3>Nome do Membro 1</h3>
+                        <p class="position">Novos Negócios</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 2 -->
+                    <div class="team-member">
+                        <img src="Imagens/Giovanna-Ribeiro.jpeg" alt="Foto do Membro de Novos Negócios" class="team-photo">
+                        <h3>Giovanna Ribeiro</h3>
+                        <p class="position">Consultora de invocação e desenvolvimento</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 3 -->
+                    <div class="team-member">
+                        <img src="Imagens/John-Calebe.jpeg" alt="Foto do Membro de Novos Negócios" class="team-photo">
+                        <h3>John Calebe</h3>
+                        <p class="position">Consultor de novos negócios</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 4 -->
+                    <div class="Imagens/Letícia-Costa.jpeg">
+                        <img src="placeholder.jpg" alt="Foto do Membro de Novos Negócios" class="team-photo">
+                        <h3>Letícia Costa</h3>
+                        <p class="position">Consultora de Inovação e Desenvolvimento</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Administrativo -->
+            <div id="administrativo" class="team-content">
+                <div class="team-grid">
+                    <!-- Pessoa 1 -->
+                    <div class="team-member">
+                        <img src="Imagens/Marcos-Vinicius.jpeg" alt="Foto do Membro Administrativo" class="team-photo">
+                        <h3>Marcos Vinicius</h3>
+                        <p class="position">Diretor do Administrativo</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 2 -->
+                    <div class="team-member">
+                        <img src="Imagens/Carla-Eduarda.jpeg" alt="Foto do Membro Administrativo" class="team-photo">
+                        <h3>Carla Eduarda</h3>
+                        <p class="position">Consultora Administrativa</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 3 -->
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Membro Administrativo" class="team-photo">
+                        <h3>Nome do Membro 3</h3>
+                        <p class="position">Administrativo</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 4 -->
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Membro Administrativo" class="team-photo">
+                        <h3>Nome do Membro 4</h3>
+                        <p class="position">Administrativo</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Logística -->
+            <div id="logistica" class="team-content">
+                <div class="team-grid">
+                    <!-- Pessoa 1 -->
+                    <div class="team-member">
+                        <img src="Imagens/Laís-Camurça.jpeg" alt="Foto do Membro de Logística" class="team-photo">
+                        <h3>Laís Camurça</h3>
+                        <p class="position">Diretora de Operações e Produção</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 2 -->
+                    <div class="team-member">
+                        <img src="Imagens/Maria-Eduarda.jpeg" alt="Foto do Membro de Logística" class="team-photo">
+                        <h3>Maria Eduarda</h3>
+                        <p class="position">Consultora de Operações e Produção</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 3 -->
+                    <div class="team-member">
+                        <img src="Imagens/Francisco-Leandro.jpeg" alt="Foto do Membro de Logística" class="team-photo">
+                        <h3>Francisco Leandro</h3>
+                        <p class="position">Consultor de Operações e Produção</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                    <!-- Pessoa 4 -->
+                    <div class="team-member">
+                        <img src="placeholder.jpg" alt="Foto do Membro de Logística" class="team-photo">
+                        <h3>Nome do Membro 4</h3>
+                        <p class="position">Logística</p>
+                        <p>Breve descrição sobre o membro e suas responsabilidades no departamento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Serviços -->
+        <section class="section services" id="servicos">
+            <h2 class="section-title">Nossos Serviços</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Consultoria em Marketing</h3>
+                    <p>Foca em estratégias para aumentar a visibilidade da marca, atrair e fidelizar clientes. Pode envolver planejamento de campanhas, gestão de redes sociais, SEO, publicidade e análise de mercado.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Consultoria em Finanças</h3>
+                    <p>Ajuda empresas a organizarem seu fluxo de caixa, reduzirem custos, estruturarem investimentos e garantirem sustentabilidade financeira. Pode incluir planejamento orçamentário, análise de rentabilidade e controle de endividamento.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Consultoria em Gestão de Pessoas</h3>
+                    <p>Oferece suporte na atração, retenção e desenvolvimento de talentos. Pode incluir treinamentos, estratégias de engajamento, estruturação de cargos e salários, além de melhoria do clima organizacional.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>Consultoria em Novos Negócios</h3>
+                    <p>Auxilia empreendedores no planejamento e estruturação de startups ou novos produtos/serviços. Inclui análise de viabilidade, modelagem de negócios, identificação de oportunidades e estratégias de crescimento.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-building"></i>
+                    <h3>Consultoria Administrativa</h3>
+                    <p>Atua na organização e otimização dos processos internos da empresa, buscando maior eficiência operacional. Pode envolver gestão documental, melhoria de fluxos de trabalho e implantação de boas práticas de governança.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-id-card"></i>
+                    <h3>Consultoria em Logística</h3>
+                    <p>Foca na otimização da cadeia de suprimentos, transporte, armazenamento e distribuição de mercadorias. Auxilia empresas a reduzir custos, melhorar prazos de entrega, aumentar a eficiência operacional e implementar tecnologias para rastreamento e gestão de estoques.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Contato -->
+        <section class="section" id="contato">
+            <h2 class="section-title">Contato</h2>
+            <div class="contact-info">
+                <h3>Entre em contato conosco</h3>
+                <p>Estamos disponíveis para tirar dúvidas e apresentar nossas soluções</p>
+                <div style="margin: 30px 0;">
+                    <a href="https://wa.me/5585994151359" class="btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
+                <p>Email: contato@globalfocus.com</p>
+                <p>Telefone: (85) 99415-1359</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>GlobalFocus</h3>
+                    <p>Consultoria educacional especializada em transformar desafios em oportunidades de crescimento.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Links Rápidos</h3>
+                    <a href="#home">Início</a>
+                    <a href="#sobre">O que fazemos</a>
+                    <a href="#quem-somos">Quem Somos</a>
+                    <a href="#servicos">Serviços</a>
+                    <a href="#contato">Contato</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-map-marker-alt"></i>  EEEP Adolfo Ferreira de Sousa
+                        Avenida Abolição, Ce 040 Centro de Redenção - CEP: 62790-000</p>
+                    <p><i class="fas fa-phone"></i> (85) 99415-1359</p>
+                    <p><i class="fas fa-envelope"></i> contato@globalfocus.com</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 GlobalFocus. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Função para alternar entre as abas da equipe - VERSÃO CORRIGIDA
+        function openTeamTab(tabName, element) {
+            // Esconde todos os conteúdos das abas
+            document.querySelectorAll('.team-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove a classe 'active' de todos os botões das abas
+            document.querySelectorAll('.team-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostra o conteúdo da aba atual e adiciona a classe 'active' ao botão
+            document.getElementById(tabName).classList.add('active');
+            element.classList.add('active');
+        }
+
+        // Adiciona event listeners quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configura os listeners para cada aba
+            document.querySelectorAll('.team-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    openTeamTab(tabName, this);
+                });
+            });
+            
+            // Ativa a aba inicial (presidência)
+            const initialTab = document.querySelector('.team-tab.active');
+            if (initialTab) {
+                const initialTabName = initialTab.getAttribute('data-tab');
+                document.getElementById(initialTabName).classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
